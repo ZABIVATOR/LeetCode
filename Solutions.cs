@@ -20,7 +20,7 @@ namespace LeetCode
 
         {
             int res = 0;
-            Dictionary<int, int> heap = new Dictionary<int, int>();
+            Dictionary<int, int> heap = new();
 
             for (int i = 0; i < nums.Length; i++)
             {
