@@ -42,5 +42,12 @@ namespace LeetCode
 
             return res;
         }
+
+        static public int Task215_FindKthLargest(int[] nums, int k) //lol idk sort bc i can
+        {
+            Array.Sort(nums);
+            return (nums[^k]);
+        }
+
     }
 }

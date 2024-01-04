@@ -8,24 +8,32 @@ namespace LeetCode
 {
     internal class HeapSort
     {
-        public static int[] Heapify(int[] nums, int n, int i)
+        static int[] Heapify(int[] arr, int n, int i)
         {
-            //смена если правый потомок меньше и обновление его потомков
-            if (2 * i + 2 < n)
-                if (nums[2 * i + 2] > nums[i])
-                {
-                    (nums[2 * i + 2], nums[i]) = (nums[i], nums[2 * i + 2]);
-                    Heapify(nums, n, 2 * i + 2);
-                }
-            //смена если левый потомок меньше и обновление его потомков
-            if (2 * i + 1 < n)
-                if (nums[2 * i + 1] > nums[i])
-                {
-                    (nums[2 * i + 1], nums[i]) = (nums[i], nums[2 * i + 1]);
-                    Heapify(nums, n, 2 * i + 1);
-                }
-            return nums;
+            int largest = i;
+            // Инициализируем наибольший элемент как корень
+            int l = 2 * i + 1; // left = 2*i + 1
+            int r = 2 * i + 2; // right = 2*i + 2
+
+            // Если левый дочерний элемент больше корня
+            if (l < n && arr[l] > arr[largest])
+                largest = l;
+
+            // Если правый дочерний элемент больше, чем самый большой элемент на данный момент
+            if (r < n && arr[r] > arr[largest])
+                largest = r;
+
+            // Если самый большой элемент не корень
+            if (largest != i)
+            {
+                (arr[largest], arr[i]) = (arr[i], arr[largest]);
+
+                // Рекурсивно преобразуем в двоичную кучу затронутое поддерево
+                arr = Heapify(arr, n, largest);
+            }
+            return arr;
         }
+
 
         public static int[] Sort(int[] arr)
         {
