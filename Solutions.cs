@@ -201,47 +201,7 @@ namespace LeetCode
             }
             return res;
         }
-
-        public int Task164_MaximumGap_outofmemory(int[] nums)//counting not working
-        {
-            int max = 0;
-            if (nums.Length < 2)
-            {
-                return max;
-            }
-            int K = nums.Max();
-            int[] counts = new int[K + 1];
-            int lastnotzeroelement = 0;
-            foreach (int elem in nums)
-            {
-                counts[elem] += 1;
-
-            }
-
-            for (int i = 0; i < K + 1; i++)
-            {
-                if (counts[i] != 0)
-                {
-                    lastnotzeroelement = i;
-                    break;
-                }
-            }
-
-            for (int i = 0; i < K + 1; i++)
-            {
-                if (counts[i] != 0)
-                {
-                    if (Math.Abs(i - lastnotzeroelement) > max)
-                    {
-                        max = i - lastnotzeroelement;
-                    }
-                    lastnotzeroelement = i;
-                }
-            }
-
-            return max;
-        }
-
+        
         public int Task164_MaximumGap(int[] nums)
         {
             Array.Sort(nums);
