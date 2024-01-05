@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace LeetCode
 {
-    public class Solutions
+    internal interface IDaily_Solutions
     {
         static public int Task2870_MinOperations(int[] nums)//2870. Minimum Number of Operations to Make Array Empty 
         /*
@@ -49,7 +49,7 @@ namespace LeetCode
             return (nums[^k]);
         }
 
-        static public int[] LengthOfLIS_dynamic(int[] nums)//300. Longest Increasing Subsequence
+        static public int[] Task300_LengthOfLIS_dynamic(int[] nums)//300. Longest Increasing Subsequence, nado eshe ebanut' nlogn
         {
             int[] Subseq = new int[nums.Length];
             
