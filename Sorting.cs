@@ -121,7 +121,6 @@ namespace LeetCode
         {
             Array.Sort(arr);
             IList<IList<int>> result = new List<IList<int>>();
-            int n = arr.Length;
             int minDiff = int.MaxValue;
             for (int i = 1; i < arr.Length; i++)
             {
@@ -142,7 +141,7 @@ namespace LeetCode
 
         static public int[] Task2343SmallestTrimmedNumbers(string[] nums, int[][] queries)//2343. Query Kth Smallest Trimmed Number
         {
-            List<int> res = new List<int>();
+            List<int> res = new();
             foreach (int[] q in queries)
             {
                 int min = Task2343Countonequerry(nums, q[0], q[1]);
@@ -155,7 +154,7 @@ namespace LeetCode
         static int Task2343Countonequerry(string[] nums, int k, int trim)
         {
             int eachNumlenght = nums[0].Length;
-            List<(string, int)> values = new List<(string, int)>();
+            List<(string, int)> values = new();
             for (int i = 0; i < nums.Length; i++)
             {
                 values.Add((nums[i].Substring(eachNumlenght - trim), i));
@@ -164,7 +163,28 @@ namespace LeetCode
             return values.Skip(k - 1).ToList()[0].Item2;
         }
 
-        public void countingSort(int[] arr)
+        //347. Top K Frequent Elements
+        public int[] Task347_TopKFrequent(int[] nums, int k)
+        {
+            int[] res = new int[k];
+            Dictionary<int,int> keyValuePairs = new();
+            foreach (int elem in nums)
+            {
+                if (keyValuePairs.ContainsKey(elem)) 
+                    keyValuePairs[elem]++;
+                else 
+                    keyValuePairs.Add(elem,1);
+            }
+            keyValuePairs = keyValuePairs.OrderBy(x => x.Value).ToDictionary(x => x.Key, x => x.Value);
+            for (int i = 0;i < k;i++)
+            {
+                res[i]=keyValuePairs.ElementAt(keyValuePairs.Count-i-1).Key;
+            }
+            return res;
+        }
+
+
+        public void CountingSort(int[] arr)
         {
             // Sorts an array of integers where minimum value is 0 and maximum value is K
             int K = arr.Max();
@@ -201,9 +221,9 @@ namespace LeetCode
             }
         }
 
-        private static int NUM_DIGITS = 10;
+        protected private static int NUM_DIGITS = 10;
 
-        public void countingSort(int[] arr, int placeVal)
+        public void CountingSort(int[] arr, int placeVal)
         {
             // Sorts an array of integers where minimum value is 0 and maximum value is NUM_DIGITS
             int[] counts = new int[NUM_DIGITS];
@@ -243,7 +263,7 @@ namespace LeetCode
             }
         }
 
-        public void radixSort(ref int[] arr)
+        public void RadixSort(ref int[] arr)
         {
             int maxElem = int.MinValue;
             foreach (int elem in arr)
@@ -257,7 +277,7 @@ namespace LeetCode
             int placeVal = 1;
             while (maxElem / placeVal > 0)
             {
-                countingSort(arr, placeVal);
+                CountingSort(arr, placeVal);
                 placeVal *= 10;
             }
         }
@@ -304,7 +324,7 @@ namespace LeetCode
 
         public int Task164_MaximumGap(int[] nums)
         {
-            radixSort(ref nums);
+            Array.Sort(nums);
             int max = 0;
             for (int i = 1; i < nums.Length; i++)
             {
