@@ -138,5 +138,30 @@ namespace LeetCode
             }
             return result;
         }
+
+        static public int[] Task2343SmallestTrimmedNumbers(string[] nums, int[][] queries)//2343. Query Kth Smallest Trimmed Number
+        {
+            List<int> res = new List<int>();
+            foreach (int[] q in queries) {
+                int min = Task2343Countonequerry(nums, q[0], q[1]);
+               // res.Add(int.Parse(nums[min]));
+               res.Add(min);
+            }
+            return res.ToArray();
+        }
+        
+        static int Task2343Countonequerry(string[] nums,int k, int trim)
+        {
+            int[] temptrimmed = new int[nums.Length];
+            Dictionary<int,int> result = new Dictionary<int,int>();
+            for (int i = 0; i < nums.Length; i++)
+            {
+                result.Add(i, int.Parse(nums[i].Substring(nums[i].Length - trim)));
+            }
+            result = result.OrderBy(x => x.Value).ToDictionary(x => x.Key, x => x.Value);
+            return result.ElementAt(k-1).Key;
+        }
+
+
     }
 }

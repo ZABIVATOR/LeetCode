@@ -5,14 +5,13 @@
     {
         static void Main()
         {
-            int[] nums = { 3, 8, -10, 23, 19, -4, -14, 27 };
+            string[] nums = { "24", "37", "96", "04" };
+            int[][] q = [[2, 1], [2, 2]];
             Console.WriteLine("массив");
-            foreach (int x in nums) { Console.Write(x + " "); }
+            foreach (var x in nums) { Console.Write(x + " "); }
             Console.WriteLine();
-            var temp = ISorting.Task1200_MinimumAbsoluteDifference(nums);
-            foreach (var x in temp) {
-                Console.Write("["+x[0] + ", " + x[1]+"] "); 
-            }
+            var temp = ISorting.Task2343SmallestTrimmedNumbers(nums,q);
+            foreach (var x in temp) { Console.Write(x + " "); }
         }
     }
 }
