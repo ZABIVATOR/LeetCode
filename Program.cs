@@ -1,7 +1,7 @@
 ﻿namespace LeetCode
 {
 
-    class Test : IDaily_Solutions, ISorting
+    class Test : IDailySolutions, ISorting
     {
         static void Main()
         {
