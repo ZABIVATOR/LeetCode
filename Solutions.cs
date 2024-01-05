@@ -49,5 +49,26 @@ namespace LeetCode
             return (nums[^k]);
         }
 
+        static public int[] LengthOfLIS_dynamic(int[] nums)//300. Longest Increasing Subsequence
+        {
+            int[] Subseq = new int[nums.Length];
+            
+            for (int i = 0; i < nums.Length; i++)
+            {
+                int count = 1;
+                for (int j = 0; j < i; j++)
+                {
+                    if (nums[j] < nums[i] && count-1< Subseq[j])
+                    {
+                        count = Subseq[j]+1;
+                    }
+                }
+                Subseq[i] = count;
+                
+            }
+            return Subseq;
+        }
+
+
     }
 }

@@ -5,12 +5,12 @@
     {
         static void Main()
         {
-            int[] nums = { 1, 2, 3, 4, 5, 1, 2, 3, 4, 5, 2134};
-            nums = HeapSort.Sort(nums);
-            for (int i = 0; i < nums.Length; i++)
-            {
-                Console.Write(nums[i] + " ");
-            }
+            int[] nums = {0, 1, 0, 3, 2, 3};
+            Console.WriteLine( "массив");
+            foreach (int x in nums) { Console.Write(x + " "); }
+            Console.WriteLine();
+            nums = LengthOfLIS_dynamic(nums);
+            foreach(int x in nums) { Console.Write(x+" "); }
         }
     }
 }
