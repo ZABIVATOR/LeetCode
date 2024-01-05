@@ -10,7 +10,7 @@
             Console.WriteLine("массив");
             foreach (var x in nums) { Console.Write(x + " "); }
             Console.WriteLine();
-            var temp = ISorting.Task2343SmallestTrimmedNumbers(nums,q);
+            var temp = IDailySolutions.Task2343SmallestTrimmedNumbers(nums,q);
             foreach (var x in temp) { Console.Write(x + " "); }
         }
     }

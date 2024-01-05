@@ -34,7 +34,7 @@ namespace LeetCode
             }
             return arr;
         }
-        public static int[] Sort(int[] arr)
+        public static int[] HeapSort(int[] arr)
         {
             int n = arr.Length;
             // Построение кучи (перегруппируем массив)
@@ -50,139 +50,6 @@ namespace LeetCode
             }
             return arr;
         }
-
-        static public int[] Task75_SortColors(int[] nums)
-        {
-            int red = 0;
-            int green = 0;
-            int blue = 0;
-            foreach (int i in nums)
-            {
-                switch (i)
-                {
-                    case 0:
-                        red++;
-                        break;
-                    case 1:
-                        green++;
-                        break;
-                    case 2:
-                        blue++;
-                        break;
-                }
-            }
-            for (int i = 0; i < red; i++)
-            {
-                nums[i] = 0;
-            }
-            for (int i = red; i < red + green; i++)
-            {
-                nums[i] = 1;
-            }
-            for (int i = red + green; i < red + green + blue; i++)
-            {
-                nums[i] = 2;
-            }
-            return nums;
-        }
-
-        static public IList<IList<int>> Task1200_MinimumAbsoluteDifference_brootforce(int[] arr)//straight
-        {
-            Array.Sort(arr);
-            IList<IList<int>> res = new List<IList<int>>();
-            int n = arr.Length;
-            int minimalminimaldifference = int.MaxValue;
-            for (int i = 0; i < n - 1; i++)
-            {
-                for (int j = i + 1; j < n; j++)
-                {
-                    if (Math.Abs(arr[i] - arr[j]) < minimalminimaldifference)
-                    {
-                        minimalminimaldifference = Math.Abs(arr[i] - arr[j]);
-                    }
-                }
-            }
-
-            for (int i = 0; i < n - 1; i++)
-            {
-                for (int j = i + 1; j < n; j++)
-                {
-                    if (Math.Abs(arr[i] - arr[j]) == minimalminimaldifference)
-                    {
-                        res.Add(new int[] { arr[i], arr[j] });
-                    }
-                }
-            }
-
-            return res;
-        }
-
-        static public IList<IList<int>> Task1200_MinimumAbsoluteDifference(int[] arr)//sort optimized
-        {
-            Array.Sort(arr);
-            IList<IList<int>> result = new List<IList<int>>();
-            int minDiff = int.MaxValue;
-            for (int i = 1; i < arr.Length; i++)
-            {
-                int currentDiff = arr[i] - arr[i - 1];
-                if (currentDiff < minDiff)
-                {
-                    minDiff = currentDiff;
-                    result.Clear();
-                    result.Add(new List<int> { arr[i - 1], arr[i] });
-                }
-                else if (currentDiff == minDiff)
-                {
-                    result.Add(new List<int> { arr[i - 1], arr[i] });
-                }
-            }
-            return result;
-        }
-
-        static public int[] Task2343SmallestTrimmedNumbers(string[] nums, int[][] queries)//2343. Query Kth Smallest Trimmed Number
-        {
-            List<int> res = new();
-            foreach (int[] q in queries)
-            {
-                int min = Task2343Countonequerry(nums, q[0], q[1]);
-                // res.Add(int.Parse(nums[min]));
-                res.Add(min);
-            }
-            return res.ToArray();
-        }
-
-        static int Task2343Countonequerry(string[] nums, int k, int trim)
-        {
-            int eachNumlenght = nums[0].Length;
-            List<(string, int)> values = new();
-            for (int i = 0; i < nums.Length; i++)
-            {
-                values.Add((nums[i].Substring(eachNumlenght - trim), i));
-            }
-            values.Sort((a, b) => a.Item1 != b.Item1 ? a.Item1.CompareTo(b.Item1) : a.Item2.CompareTo(b.Item2));
-            return values.Skip(k - 1).ToList()[0].Item2;
-        }
-
-        //347. Top K Frequent Elements
-        public int[] Task347_TopKFrequent(int[] nums, int k)
-        {
-            int[] res = new int[k];
-            Dictionary<int,int> keyValuePairs = new();
-            foreach (int elem in nums)
-            {
-                if (keyValuePairs.ContainsKey(elem)) 
-                    keyValuePairs[elem]++;
-                else 
-                    keyValuePairs.Add(elem,1);
-            }
-            keyValuePairs = keyValuePairs.OrderBy(x => x.Value).ToDictionary(x => x.Key, x => x.Value);
-            for (int i = 0;i < k;i++)
-            {
-                res[i]=keyValuePairs.ElementAt(keyValuePairs.Count-i-1).Key;
-            }
-            return res;
-        }
-
 
         public void CountingSort(int[] arr)
         {
@@ -282,58 +149,6 @@ namespace LeetCode
             }
         }
 
-        public int Task164_MaximumGap_outofmemory(int[] nums)//counting not working
-        {
-            int max = 0;
-            if (nums.Length < 2)
-            {
-                return max;
-            }
-            int K = nums.Max();
-            int[] counts = new int[K + 1];
-            int lastnotzeroelement = 0;
-            foreach (int elem in nums)
-            {
-                counts[elem] += 1;
 
-            }
-
-            for (int i = 0; i < K + 1; i++)
-            {
-                if (counts[i] != 0)
-                {
-                    lastnotzeroelement = i;
-                    break;
-                }
-            }
-
-            for (int i = 0; i < K + 1; i++)
-            {
-                if (counts[i] != 0)
-                {
-                    if (Math.Abs(i - lastnotzeroelement) > max)
-                    {
-                        max = i - lastnotzeroelement;
-                    }
-                    lastnotzeroelement = i;
-                }
-            }
-
-            return max;
-        }
-
-        public int Task164_MaximumGap(int[] nums)
-        {
-            Array.Sort(nums);
-            int max = 0;
-            for (int i = 1; i < nums.Length; i++)
-            {
-                if (Math.Abs(nums[i] - nums[i - 1]) > max)
-                {
-                    max = nums[i] - nums[i - 1];
-                }
-            }
-            return max;
-        }
     }
 }
