@@ -8,6 +8,32 @@ namespace LeetCode
 {
     internal interface IDailySolutions: ISorting
     {
+
+
+
+        static public int Task724_PivotIndex(int[] nums)
+        {
+            int leftsum = 0;
+            int rightsum = nums.Sum()-nums[0];
+            if(leftsum == rightsum)
+            {
+                return 0;
+            }
+
+
+            for(int i = 1; i < nums.Length; i++)
+            {
+                leftsum += nums[i-1];
+                rightsum -= nums[i];
+                if (leftsum == rightsum)
+                {
+                    return i;
+                }
+            }
+
+            return -1;
+        }
+
         static private int FindLastCompletedJob(ref int[] startTime,ref int[] endTime,ref int[] profit, int currentIndex)
         {
             int low = 0;
@@ -15,7 +41,7 @@ namespace LeetCode
 
             while (low <= high)
             {
-                int mid = low + (high - low) / 2;
+                int mid = (high + low) / 2;
                 if (endTime[mid] <= startTime[currentIndex])
                 {
                     if (endTime[mid + 1] <= startTime[currentIndex])
