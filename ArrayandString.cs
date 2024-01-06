@@ -10,6 +10,61 @@ namespace LeetCode
 {
     internal interface IArrayandString:ISorting
     {
+        public void Task283_MoveZeroes(int[] nums)
+        {
+            for (int i = 0; i < nums.Length; i++)
+            {
+                if (nums[i] == 0)
+                {
+                    for (int j = i + 1; j < nums.Length; j++)
+                    {
+                        if (nums[j] != 0)
+                        {
+                            var temp = nums[j];
+                            nums[j] = nums[i];
+                            nums[i] = temp;
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+
+        public int Task26_RemoveDuplicates(int[] nums)
+        {
+            int k = 1;
+            int previouse = nums[0];
+            for (int i = 1; i < nums.Length; i++)
+            {
+                if (nums[i] != previouse)
+                {
+                    nums[k] = nums[i];
+                    k++;
+                }
+                previouse = nums[i];
+            }
+            return k;
+        }
+
+        public string Task557_ReverseWords(string s)
+        {
+            string[] words = s.Split(' ', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
+            for (int i = 0; i < words.Length; i++)
+            {
+                char[] chArray = words[i].ToCharArray();
+                Array.Reverse(chArray);
+                words[i] = new string(chArray);
+            }
+            return string.Join(" ", words);
+        }
+
+        public string Task151_ReverseWords(string s)
+        {
+            string[] words = s.Split(' ', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
+            Array.Reverse(words);
+            return string.Join(" ", words);
+        }
+
         public void Task189_Rotate(int[] nums, int k)
         {
             int[] output = new int[nums.Length];
@@ -211,7 +266,10 @@ namespace LeetCode
             }
             return triangle;
         }
-
+        public IList<int> Task119_GetRow(int rowIndex)
+        {
+            return Task118_GeneratePascalTri(rowIndex+1).ElementAt(rowIndex);
+        }
 
         static void AddDirectionToList(ref IList<int> list,ref int[][] matrix,ref string direction, 
             ref int minline,ref int mincolumn, ref int maxline, ref int maxcolumn , ref int actualline, ref int actualcolumn)
