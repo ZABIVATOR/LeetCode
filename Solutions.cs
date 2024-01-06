@@ -6,122 +6,8 @@ using System.Threading.Tasks;
 
 namespace LeetCode
 {
-    internal interface IDailySolutions: ISorting
+    internal interface IDailySolutions: ISorting,ArrayandString
     {
-        static void AdddiagonaltoList(ref List<int> result, ref int[][] mat, int count, bool up)
-        {
-            if (up)
-            {
-                for (int i = 0; i < count+1; i++) {
-                    if (i < mat.Length && count - i < mat[0].Length)
-                    {
-                        result.Add(mat[i][count - i]);
-                    }
-                }
-            }
-            else
-            {
-                for (int i = count; i >=0; i--)
-                {
-                    if (i < mat.Length && count - i < mat[0].Length)
-                    {
-                        result.Add(mat[i][count - i]);
-                    }
-                }
-            }
-
-        }
-        static public int[] Task498_FindDiagonalOrder(int[][] mat)//498. Diagonal Traverse
-        {
-            List<int> result = new List<int>();
-            int numofelem = mat.Length * mat[0].Length;
-            int countdiag = mat.Length + mat[0].Length+1;
-            bool up = true;
-            result.Add(mat[0][0]);
-
-            for (int i = 1;i< countdiag; i++) {
-                AdddiagonaltoList(ref result, ref mat, i,up);
-                up=!up;
-            }
-            return result.ToArray();
-        }
-
-
-        static int[] CaseNines(int[] arr1)
-        {
-            int[] res = new int[arr1.Length+1];
-            res[0] = 1;
-            for (int i = 0;i < arr1.Length; i++)
-            {
-                res[i+1] = arr1[i];
-            }
-            return res;
-        }
-        static public int[] Task66_PlusOne(int[] digits)//66. Plus One
-        {
-            for (int i= digits.Length - 1; i >=0; i--)
-            {
-                if (digits[i] == 9)
-                {
-                    digits[i] = 0;
-                    if (i == 0)
-                    {
-                        return CaseNines(digits);
-                    }
-
-                }
-                else
-                {
-                    digits[i] = digits[i] + 1;
-                    break;
-                }
-            }
-            return digits;
-        } 
-
-        static public int Task747_DominantIndex(int[] nums)//747. Largest Number At Least Twice of Others
-        {
-            Dictionary<int,int> result = new();
-            for (int i = 0; i < nums.Length; i++)
-            {
-                if (!result.ContainsKey(nums[i]))
-                    result.Add(nums[i], i);
-            }
-            
-            int max = result.Keys.Max();
-            int maxindex = result[max];
-            result.Remove(max);
-            if (max >= 2 * result.Keys.Max())
-            {
-                return maxindex;
-            }
-            else
-                return -1;
-        }
-
-        static public int Task724_PivotIndex(int[] nums)
-        {
-            int leftsum = 0;
-            int rightsum = nums.Sum()-nums[0];
-            if(leftsum == rightsum)
-            {
-                return 0;
-            }
-
-
-            for(int i = 1; i < nums.Length; i++)
-            {
-                leftsum += nums[i-1];
-                rightsum -= nums[i];
-                if (leftsum == rightsum)
-                {
-                    return i;
-                }
-            }
-
-            return -1;
-        }
-
         static int FindLastCompletedJob(ref int[] startTime,ref int[] endTime, int currentIndex)
         {
             int low = 0;
@@ -168,7 +54,6 @@ namespace LeetCode
 
             return maxProfit.Max();
         }
-
         public static  int Task1235_JobScheduling_brootforce_notwork_bigruntime(int[] startTime, int[] endTime, int[] profit)//1235. Maximum Profit in Job Scheduling same as task 300
         {
             int n = profit.Length;
@@ -232,12 +117,6 @@ namespace LeetCode
             return res;
         }
 
-        static public int Task215_FindKthLargest(int[] nums, int k) //lol idk sort bc i can
-        {
-            Array.Sort(nums);
-            return (nums[^k]);
-        }
-
         static public int[] Task300_LengthOfLIS_dynamic(int[] nums)//300. Longest Increasing Subsequence, nado eshe ebanut' nlogn
         {
             int[] Subseq = new int[nums.Length];
@@ -256,150 +135,6 @@ namespace LeetCode
                 
             }
             return Subseq;
-        }
-
-        static public int[] Task75_SortColors(int[] nums)
-        {
-            int red = 0;
-            int green = 0;
-            int blue = 0;
-            foreach (int i in nums)
-            {
-                switch (i)
-                {
-                    case 0:
-                        red++;
-                        break;
-                    case 1:
-                        green++;
-                        break;
-                    case 2:
-                        blue++;
-                        break;
-                }
-            }
-            for (int i = 0; i < red; i++)
-            {
-                nums[i] = 0;
-            }
-            for (int i = red; i < red + green; i++)
-            {
-                nums[i] = 1;
-            }
-            for (int i = red + green; i < red + green + blue; i++)
-            {
-                nums[i] = 2;
-            }
-            return nums;
-        }
-
-        static public IList<IList<int>> Task1200_MinimumAbsoluteDifference_brootforce(int[] arr)//straight
-        {
-            Array.Sort(arr);
-            IList<IList<int>> res = new List<IList<int>>();
-            int n = arr.Length;
-            int minimalminimaldifference = int.MaxValue;
-            for (int i = 0; i < n - 1; i++)
-            {
-                for (int j = i + 1; j < n; j++)
-                {
-                    if (Math.Abs(arr[i] - arr[j]) < minimalminimaldifference)
-                    {
-                        minimalminimaldifference = Math.Abs(arr[i] - arr[j]);
-                    }
-                }
-            }
-
-            for (int i = 0; i < n - 1; i++)
-            {
-                for (int j = i + 1; j < n; j++)
-                {
-                    if (Math.Abs(arr[i] - arr[j]) == minimalminimaldifference)
-                    {
-                        res.Add(new int[] { arr[i], arr[j] });
-                    }
-                }
-            }
-
-            return res;
-        }
-        static public IList<IList<int>> Task1200_MinimumAbsoluteDifference(int[] arr)//sort optimized
-        {
-            Array.Sort(arr);
-            IList<IList<int>> result = new List<IList<int>>();
-            int minDiff = int.MaxValue;
-            for (int i = 1; i < arr.Length; i++)
-            {
-                int currentDiff = arr[i] - arr[i - 1];
-                if (currentDiff < minDiff)
-                {
-                    minDiff = currentDiff;
-                    result.Clear();
-                    result.Add(new List<int> { arr[i - 1], arr[i] });
-                }
-                else if (currentDiff == minDiff)
-                {
-                    result.Add(new List<int> { arr[i - 1], arr[i] });
-                }
-            }
-            return result;
-        }
-
-        static int Countonequerry(string[] nums, int k, int trim)
-        {
-            int eachNumlenght = nums[0].Length;
-            List<(string, int)> values = new();
-            for (int i = 0; i < nums.Length; i++)
-            {
-                values.Add((nums[i].Substring(eachNumlenght - trim), i));
-            }
-            values.Sort((a, b) => a.Item1 != b.Item1 ? a.Item1.CompareTo(b.Item1) : a.Item2.CompareTo(b.Item2));
-            return values.Skip(k - 1).ToList()[0].Item2;
-        }
-        static public int[] Task2343SmallestTrimmedNumbers(string[] nums, int[][] queries)//2343. Query Kth Smallest Trimmed Number
-        {
-            List<int> res = new();
-            foreach (int[] q in queries)
-            {
-                int min = Countonequerry(nums, q[0], q[1]);
-                // res.Add(int.Parse(nums[min]));
-                res.Add(min);
-            }
-            return res.ToArray();
-        }
-        
-
-        public int[] Task347_TopKFrequent(int[] nums, int k)//347. Top K Frequent Elements
-        {
-            int[] res = new int[k];
-            Dictionary<int, int> keyValuePairs = new();
-            foreach (int elem in nums)
-            {
-                if (keyValuePairs.ContainsKey(elem))
-                    keyValuePairs[elem]++;
-                else
-                    keyValuePairs.Add(elem, 1);
-            }
-            keyValuePairs = keyValuePairs.OrderBy(x => x.Value).ToDictionary(x => x.Key, x => x.Value);
-            for (int i = 0; i < k; i++)
-            {
-                res[i] = keyValuePairs.ElementAt(keyValuePairs.Count - i - 1).Key;
-            }
-            return res;
-        }
-        
-        public int Task164_MaximumGap(int[] nums)
-        {
-            Array.Sort(nums);
-            int max = 0;
-            for (int i = 1; i < nums.Length; i++)
-            {
-                if (Math.Abs(nums[i] - nums[i - 1]) > max)
-                {
-                    max = nums[i] - nums[i - 1];
-                }
-            }
-            return max;
         }
 
 
