@@ -8,6 +8,45 @@ namespace LeetCode
 {
     internal interface IDailySolutions: ISorting
     {
+        static void AdddiagonaltoList(ref List<int> result, ref int[][] mat, int count, bool up)
+        {
+            if (up)
+            {
+                for (int i = 0; i < count+1; i++) {
+                    if (i < mat.Length && count - i < mat[0].Length)
+                    {
+                        result.Add(mat[i][count - i]);
+                    }
+                }
+            }
+            else
+            {
+                for (int i = count; i >=0; i--)
+                {
+                    if (i < mat.Length && count - i < mat[0].Length)
+                    {
+                        result.Add(mat[i][count - i]);
+                    }
+                }
+            }
+
+        }
+        static public int[] Task498_FindDiagonalOrder(int[][] mat)//498. Diagonal Traverse
+        {
+            List<int> result = new List<int>();
+            int numofelem = mat.Length * mat[0].Length;
+            int countdiag = mat.Length + mat[0].Length+1;
+            bool up = true;
+            result.Add(mat[0][0]);
+
+            for (int i = 1;i< countdiag; i++) {
+                AdddiagonaltoList(ref result, ref mat, i,up);
+                up=!up;
+            }
+            return result.ToArray();
+        }
+
+
         static int[] CaseNines(int[] arr1)
         {
             int[] res = new int[arr1.Length+1];
@@ -18,8 +57,6 @@ namespace LeetCode
             }
             return res;
         }
-            
-
         static public int[] Task66_PlusOne(int[] digits)//66. Plus One
         {
             for (int i= digits.Length - 1; i >=0; i--)
@@ -42,7 +79,6 @@ namespace LeetCode
             return digits;
         } 
 
-
         static public int Task747_DominantIndex(int[] nums)//747. Largest Number At Least Twice of Others
         {
             Dictionary<int,int> result = new();
@@ -62,7 +98,6 @@ namespace LeetCode
             else
                 return -1;
         }
-
 
         static public int Task724_PivotIndex(int[] nums)
         {
@@ -87,7 +122,7 @@ namespace LeetCode
             return -1;
         }
 
-        static private int FindLastCompletedJob(ref int[] startTime,ref int[] endTime, int currentIndex)
+        static int FindLastCompletedJob(ref int[] startTime,ref int[] endTime, int currentIndex)
         {
             int low = 0;
             int high = currentIndex - 1;
@@ -223,7 +258,6 @@ namespace LeetCode
             return Subseq;
         }
 
-
         static public int[] Task75_SortColors(int[] nums)
         {
             int red = 0;
@@ -289,7 +323,6 @@ namespace LeetCode
 
             return res;
         }
-
         static public IList<IList<int>> Task1200_MinimumAbsoluteDifference(int[] arr)//sort optimized
         {
             Array.Sort(arr);
@@ -312,19 +345,7 @@ namespace LeetCode
             return result;
         }
 
-        static public int[] Task2343SmallestTrimmedNumbers(string[] nums, int[][] queries)//2343. Query Kth Smallest Trimmed Number
-        {
-            List<int> res = new();
-            foreach (int[] q in queries)
-            {
-                int min = Task2343Countonequerry(nums, q[0], q[1]);
-                // res.Add(int.Parse(nums[min]));
-                res.Add(min);
-            }
-            return res.ToArray();
-        }
-
-        static int Task2343Countonequerry(string[] nums, int k, int trim)
+        static int Countonequerry(string[] nums, int k, int trim)
         {
             int eachNumlenght = nums[0].Length;
             List<(string, int)> values = new();
@@ -335,7 +356,18 @@ namespace LeetCode
             values.Sort((a, b) => a.Item1 != b.Item1 ? a.Item1.CompareTo(b.Item1) : a.Item2.CompareTo(b.Item2));
             return values.Skip(k - 1).ToList()[0].Item2;
         }
-
+        static public int[] Task2343SmallestTrimmedNumbers(string[] nums, int[][] queries)//2343. Query Kth Smallest Trimmed Number
+        {
+            List<int> res = new();
+            foreach (int[] q in queries)
+            {
+                int min = Countonequerry(nums, q[0], q[1]);
+                // res.Add(int.Parse(nums[min]));
+                res.Add(min);
+            }
+            return res.ToArray();
+        }
+        
 
         public int[] Task347_TopKFrequent(int[] nums, int k)//347. Top K Frequent Elements
         {
