@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace LeetCode
 {
-    internal interface ArrayandString
+    internal interface IArrayandString
     {
 
 
@@ -38,7 +38,6 @@ namespace LeetCode
         static public int[] Task498_FindDiagonalOrder(int[][] mat)//498. Diagonal Traverse
         {
             List<int> result = new List<int>();
-            int numofelem = mat.Length * mat[0].Length;
             int countdiag = mat.Length + mat[0].Length + 1;
             bool up = true;
             result.Add(mat[0][0]);

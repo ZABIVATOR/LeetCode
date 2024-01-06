@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace LeetCode
 {
-    internal interface IDailySolutions: ISorting,ArrayandString
+    internal interface IDailySolutions: ISorting,IArrayandString
     {
         static int FindLastCompletedJob(ref int[] startTime,ref int[] endTime, int currentIndex)
         {
