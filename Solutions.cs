@@ -8,7 +8,60 @@ namespace LeetCode
 {
     internal interface IDailySolutions: ISorting
     {
+        static int[] CaseNines(int[] arr1)
+        {
+            int[] res = new int[arr1.Length+1];
+            res[0] = 1;
+            for (int i = 0;i < arr1.Length; i++)
+            {
+                res[i+1] = arr1[i];
+            }
+            return res;
+        }
+            
 
+        static public int[] Task66_PlusOne(int[] digits)//66. Plus One
+        {
+            for (int i= digits.Length - 1; i >=0; i--)
+            {
+                if (digits[i] == 9)
+                {
+                    digits[i] = 0;
+                    if (i == 0)
+                    {
+                        return CaseNines(digits);
+                    }
+
+                }
+                else
+                {
+                    digits[i] = digits[i] + 1;
+                    break;
+                }
+            }
+            return digits;
+        } 
+
+
+        static public int Task747_DominantIndex(int[] nums)//747. Largest Number At Least Twice of Others
+        {
+            Dictionary<int,int> result = new();
+            for (int i = 0; i < nums.Length; i++)
+            {
+                if (!result.ContainsKey(nums[i]))
+                    result.Add(nums[i], i);
+            }
+            
+            int max = result.Keys.Max();
+            int maxindex = result[max];
+            result.Remove(max);
+            if (max >= 2 * result.Keys.Max())
+            {
+                return maxindex;
+            }
+            else
+                return -1;
+        }
 
 
         static public int Task724_PivotIndex(int[] nums)
@@ -34,7 +87,7 @@ namespace LeetCode
             return -1;
         }
 
-        static private int FindLastCompletedJob(ref int[] startTime,ref int[] endTime,ref int[] profit, int currentIndex)
+        static private int FindLastCompletedJob(ref int[] startTime,ref int[] endTime, int currentIndex)
         {
             int low = 0;
             int high = currentIndex - 1;
@@ -71,7 +124,7 @@ namespace LeetCode
             for (int cur = 1; cur < n; cur++)
             {
                 maxProfit[cur] = Math.Max(maxProfit[cur - 1], profit[cur]);
-                int lastjob = FindLastCompletedJob(ref startTime, ref endTime, ref profit, cur);
+                int lastjob = FindLastCompletedJob(ref startTime, ref endTime, cur);
                 if(lastjob >= 0)
                 {
                     maxProfit[cur] = Math.Max(maxProfit[cur], profit[cur] + maxProfit[lastjob]);

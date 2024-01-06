@@ -15,9 +15,6 @@
             foreach (var x in temp) { Console.Write(x + " "); }
             */
 
-            int[] nums = [2, 1, -1];
-
-            Console.WriteLine(IDailySolutions.Task724_PivotIndex(nums));
         }
     }
 }
