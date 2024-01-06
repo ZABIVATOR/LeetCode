@@ -6,12 +6,11 @@
         static void Main()
         {
 
-            int[][] q = [[1, 2, 3], [4, 5, 6], [7, 8, 9]];
+            int[][] matrix = [[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12]];
 
-            /*
-            var temp = IDailySolutions.FindDiagonalOrder(q);
+            var  temp = IDailySolutions.Task54_SpiralOrder(matrix);
             foreach (var x in temp) { Console.Write(x + " "); }
-            */
+            
 
         }
     }

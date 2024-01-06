@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Common;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,6 +10,87 @@ namespace LeetCode
     internal interface IArrayandString
     {
 
+        static void AddDirectionToList(ref IList<int> list,ref int[][] matrix,ref string direction, 
+            ref int minline,ref int mincolumn, ref int maxline, ref int maxcolumn , ref int actualline, ref int actualcolumn)
+        {
+            switch (direction)
+            {
+                case "right":
+                    //fixed line
+                    for (int column = actualcolumn; column < maxcolumn; column++)
+                    {
+                        list.Add(matrix[actualline][column]);
+                    }
+                    actualline++;
+                    actualcolumn = maxcolumn - 1;
+
+                    minline++;
+                    direction = "down";
+                    break;
+
+                case "down":
+                    //fixed column
+                    for (int line = actualline; line < maxline; line++)
+                    {
+                        list.Add(matrix[line][actualcolumn]);
+                    }
+                    actualcolumn --;
+                    actualline=maxline-1;
+
+                    maxcolumn--;
+                    direction = "left";
+                    break;
+
+                case "left":
+                    //fixed line
+                    for (int column = actualcolumn; column >=mincolumn; column--)
+                    {
+                        list.Add(matrix[actualline][column]);
+                    }
+                    actualline--;
+                    actualcolumn = mincolumn;
+
+
+                    maxline--;
+                    direction = "up";
+                    break;
+
+                case "up":
+                    //fixed column
+                    for (int line = actualline; line >=minline; line--)
+                    {
+                        list.Add(matrix[line][actualcolumn]);
+                    }
+                    actualcolumn++;
+                    actualline = minline;
+
+                    mincolumn++;
+                    direction = "right";
+                    break;
+
+            }
+
+        }
+        static public IList<int> Task54_SpiralOrder(int[][] matrix)//54. Spiral Matrix
+        {
+            int minline = 0;//количество строк
+            int mincolumn = 0;//количество столбцов
+            int maxline = matrix.Length;//количество строк
+            int maxcolumn = matrix[0].Length;//количество столбцов
+            IList<int> result = new List<int>();
+
+            
+            int actualline = 0;
+            int actualcolumn = 0;
+            string direction = "right";
+
+            while (maxline>minline && maxcolumn > mincolumn)
+            {
+                AddDirectionToList(ref result,ref matrix,ref direction,ref minline,ref mincolumn, ref maxline, ref maxcolumn, ref actualline, ref actualcolumn);
+
+            }
+            return result;
+        }
 
 
         static void AdddiagonaltoList(ref List<int> result, ref int[][] mat, int count, bool up)
