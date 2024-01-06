@@ -149,6 +149,34 @@ namespace LeetCode
             }
         }
 
+        static void EquateFirstArrToSecond(ref int[] arr1, int[] arr2)
+        {
+            for (int i = 0; i < Math.Min(arr1.Length, arr2.Length); i++)
+            {
+                arr1[i] = arr2[i];
+            }
+        }
+
+        static void Sort3Arr_byFirst(ref int[] arr1, ref int[] arr2, ref int[] arr3)
+        {
+            int n = Math.Min(Math.Min(arr1.Length, arr2.Length), arr3.Length);
+            int[] indexes_soreted = Enumerable.Range(0, n).ToArray();
+            Array.Sort(arr1, indexes_soreted);
+            int[] temp = new int[n];
+
+            EquateFirstArrToSecond(ref temp, arr2);
+            for (int i = 0; i < n; i++)
+            {
+                arr2[i] = temp[indexes_soreted[i]];
+            }
+
+            EquateFirstArrToSecond(ref temp, arr3);
+            for (int i = 0; i < n; i++)
+            {
+                arr3[i] = temp[indexes_soreted[i]];
+            }
+        }
+
 
     }
 }
