@@ -10,6 +10,51 @@ namespace LeetCode
 {
     internal interface IArrayandString
     {
+        static public string Task14_LongestCommonPrefix(string[] strs)//14. Longest Common Prefix
+        {
+            if (strs.Length == 1)
+            {
+                return strs[0];
+            }
+
+            if (strs == null || strs.Length == 0)
+            {
+                return "";
+            }
+
+            if (strs[0].Length == 0)
+            {
+                return "";
+            }
+            if (strs.Length == 1)
+            {
+                return Convert.ToString(strs[0][0]);
+            }
+            string preprefix = "";
+            string prefix = "";
+            int minLength = strs.Min(y => y.Length);
+
+            for (int i = 0; i < minLength+1; i++)
+            {
+                foreach (string str in strs)
+                {
+                    if (!str.StartsWith(prefix))
+                    {
+                        return preprefix;
+                    }
+                }
+                preprefix = prefix;
+                if (i < minLength)
+                    prefix += strs[0][i];
+            }
+            return prefix;
+        }
+    
+
+        public int Task28_StrStr(string haystack, string needle)//28. Find the Index of the First Occurrence in a String
+        {
+            return haystack.IndexOf(needle);
+        }
 
         public static string Task67_AddBinary_KAKOGO_HUYA_MNE_NUZNO_PISAT_BITOVYU_LOGICU(string a, string b)//67. Add Binary
         {
