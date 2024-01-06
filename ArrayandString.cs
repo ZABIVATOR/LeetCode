@@ -10,7 +10,7 @@ namespace LeetCode
 {
     internal interface IArrayandString
     {
-
+        
         public int Task485_FindMaxConsecutiveOnes(int[] nums)
         {
             int count = 0;
