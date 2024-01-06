@@ -10,6 +10,97 @@ namespace LeetCode
 {
     internal interface IArrayandString
     {
+
+        public int Task485_FindMaxConsecutiveOnes(int[] nums)
+        {
+            int count = 0;
+            int max = 0;
+            for (int i = 0; i < nums.Length; i++)
+            {
+                if (nums[i] == 1)
+                    count++;
+                else
+                {
+                    if (count > max)
+                    {
+                        max = count;
+                    }
+                    count = 0;
+                }
+            }
+            if (count > max)
+            {
+                max = count;
+            }
+            return max;
+        }
+
+        public int Task27_RemoveElement(int[] nums, int val)
+        {
+            int count = 0;
+
+
+            for (int i = 0; i < nums.Length - 1 - count; i++)
+            {
+                int t = 0;
+                for (int j = nums.Length - 1; j > i; j--)
+                {
+                    if (nums[j] != val)
+                    {
+                        t = j;
+                        break;
+                    }
+                }
+
+
+                if (nums[i] == val && t > i)
+                {
+                    var temp = nums[i];
+                    nums[i] = nums[t];
+                    nums[t] = temp;
+                    count++;
+                }
+            }
+            count = 0;
+            for (int i = 0; i < nums.Length; i++)
+                if (nums[i] != val) { count++; }
+            return count;
+        }
+
+        public int[] Task167_TwoSum(int[] numbers, int target)
+        {
+            int temp = 0;
+            for (int j = 0; j < numbers.Length; j++)
+            {
+                for (int i = 0; i < numbers.Length; i++)
+                {
+                    if (numbers[i] + numbers[j] == target && i!=j)
+                    {
+                        return ([j+1, i+1]);
+                    }
+
+                }
+                temp++;
+            }
+            return ([numbers.Length]);
+        }
+
+        public int Task561_ArrayPairSum(int[] nums)
+        {
+            int sum = 0;
+            Array.Sort(nums);
+            for (int i = 0; i < nums.Length; i += 2)
+            {
+                sum += nums[i];
+            }
+            return sum;
+        }
+
+        public void Task344_ReverseString(char[] s)
+        {
+            Array.Reverse(s);
+        }
+
         static public string Task14_LongestCommonPrefix(string[] strs)//14. Longest Common Prefix
         {
             if (strs.Length == 1)
@@ -50,7 +141,6 @@ namespace LeetCode
             return prefix;
         }
     
-
         public int Task28_StrStr(string haystack, string needle)//28. Find the Index of the First Occurrence in a String
         {
             return haystack.IndexOf(needle);
