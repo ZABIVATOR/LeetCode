@@ -9,6 +9,26 @@ namespace LeetCode
 {
     internal interface IArrayandString
     {
+        public IList<IList<int>> Task118_GeneratePascalTri(int numRows)//118. Pascal's Triangle
+        {
+            IList<IList<int>> triangle = new List<IList<int>>();
+            IList<int> firstrow = new List<int>();
+            firstrow.Add(1);
+            triangle.Add(firstrow); 
+            for (int i = 1; i < numRows; i++)
+            {
+                IList<int> row = new List<int>();
+                row.Add(1);
+                for(int j = 1; j < i; j++)
+                {
+                    row.Add(triangle[i - 1][j - 1] + triangle[i - 1][j]);
+                }
+                row.Add(1);
+                triangle.Add(row);
+            }
+            return triangle;
+        }
+
 
         static void AddDirectionToList(ref IList<int> list,ref int[][] matrix,ref string direction, 
             ref int minline,ref int mincolumn, ref int maxline, ref int maxcolumn , ref int actualline, ref int actualcolumn)
@@ -91,7 +111,6 @@ namespace LeetCode
             }
             return result;
         }
-
 
         static void AdddiagonaltoList(ref List<int> result, ref int[][] mat, int count, bool up)
         {
