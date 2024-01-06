@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Data.Common;
 using System.Linq;
@@ -9,6 +10,16 @@ namespace LeetCode
 {
     internal interface IArrayandString
     {
+
+        public static string Task67_AddBinary_KAKOGO_HUYA_MNE_NUZNO_PISAT_BITOVYU_LOGICU(string a, string b)//67. Add Binary
+        {
+            var first = Convert.ToInt32(a, 2);
+            var second = Convert.ToInt32(b, 2);
+            var res = first + second;
+            string binary = Convert.ToString(res, 2);
+            return(binary);
+        }
+
         public IList<IList<int>> Task118_GeneratePascalTri(int numRows)//118. Pascal's Triangle
         {
             IList<IList<int>> triangle = new List<IList<int>>();
