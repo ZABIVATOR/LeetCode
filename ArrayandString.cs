@@ -8,8 +8,21 @@ using System.Threading.Tasks;
 
 namespace LeetCode
 {
-    internal interface IArrayandString
+    internal interface IArrayandString:ISorting
     {
+        public void Task189_Rotate(int[] nums, int k)
+        {
+            int[] output = new int[nums.Length];
+            int length = nums.Length;
+            for (int i = 0; i < nums.Length; i++)
+            {
+                output[(i + k) % length] = nums[i];
+            }
+            for (int i = 0; i < nums.Length; i++)
+            {
+                nums[i] = output[i];
+            }
+        }
 
         static public int Task209_MinSubArrayLen(int target, int[] nums)
         {
