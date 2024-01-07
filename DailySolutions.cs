@@ -8,6 +8,62 @@ namespace LeetCode
 {
     internal interface IDailySolutions: ISorting,IArrayandString
     {
+        static public int[] Task300_LengthOfLIS_dynamic(int[] nums)//300. Longest Increasing Subsequence, nado eshe ebanut' nlogn
+        {
+            int[] Subseq = new int[nums.Length];
+            for (int i = 0; i < nums.Length; i++)
+            {
+                int count = 1;
+                for (int j = 0; j < i; j++)
+                {
+                    if (nums[j] < nums[i] && count - 1 < Subseq[j])
+                    {
+                        count = Subseq[j] + 1;
+                    }
+                }
+                Subseq[i] = count;
+
+            }
+            return Subseq;
+        }
+
+        public int Task446_NumberOfArithmeticSlices(int[] nums)
+        {
+            int n = nums.Length;
+            int total_count = 0;
+
+            Dictionary<int, int>[] dp = new Dictionary<int, int>[n];
+
+            for (int i = 0; i < n; ++i)
+            {
+                dp[i] = new Dictionary<int, int>();
+            }
+
+            for (int i = 1; i < n; i++)
+            {
+                for (int j = 0; j < i; j++)
+                {
+                    long diff = (long)nums[i] - nums[j];
+                    if (diff > int.MaxValue || diff < int.MinValue)
+                    {
+                        continue;
+                    }
+
+                    int diffInt = (int)diff;
+
+                    dp[i][diffInt] = dp[i].GetValueOrDefault(diffInt) + 1;
+
+                    if (dp[j].ContainsKey(diffInt))
+                    {
+                        dp[i][diffInt] += dp[j][diffInt];
+                        total_count += dp[j][diffInt];
+                    }
+                }
+            }
+
+            return total_count;
+        }
+
         static int FindLastCompletedJob(ref int[] startTime,ref int[] endTime, int currentIndex)
         {
             int low = 0;
@@ -116,27 +172,5 @@ namespace LeetCode
 
             return res;
         }
-
-        static public int[] Task300_LengthOfLIS_dynamic(int[] nums)//300. Longest Increasing Subsequence, nado eshe ebanut' nlogn
-        {
-            int[] Subseq = new int[nums.Length];
-            
-            for (int i = 0; i < nums.Length; i++)
-            {
-                int count = 1;
-                for (int j = 0; j < i; j++)
-                {
-                    if (nums[j] < nums[i] && count-1< Subseq[j])
-                    {
-                        count = Subseq[j]+1;
-                    }
-                }
-                Subseq[i] = count;
-                
-            }
-            return Subseq;
-        }
-
-
     }
 }

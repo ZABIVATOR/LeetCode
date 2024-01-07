@@ -20,9 +20,7 @@ namespace LeetCode
                     {
                         if (nums[j] != 0)
                         {
-                            var temp = nums[j];
-                            nums[j] = nums[i];
-                            nums[i] = temp;
+                            (nums[i], nums[j]) = (nums[j], nums[i]);
                             break;
                         }
                     }
@@ -147,9 +145,7 @@ namespace LeetCode
 
                 if (nums[i] == val && t > i)
                 {
-                    var temp = nums[i];
-                    nums[i] = nums[t];
-                    nums[t] = temp;
+                    (nums[t], nums[i]) = (nums[i], nums[t]);
                     count++;
                 }
             }
@@ -250,14 +246,18 @@ namespace LeetCode
         public IList<IList<int>> Task118_GeneratePascalTri(int numRows)//118. Pascal's Triangle
         {
             IList<IList<int>> triangle = new List<IList<int>>();
-            IList<int> firstrow = new List<int>();
-            firstrow.Add(1);
+            IList<int> firstrow = new List<int>
+            {
+                1
+            };
             triangle.Add(firstrow); 
             for (int i = 1; i < numRows; i++)
             {
-                IList<int> row = new List<int>();
-                row.Add(1);
-                for(int j = 1; j < i; j++)
+                IList<int> row = new List<int>
+                {
+                    1
+                };
+                for (int j = 1; j < i; j++)
                 {
                     row.Add(triangle[i - 1][j - 1] + triangle[i - 1][j]);
                 }
@@ -379,7 +379,7 @@ namespace LeetCode
         }
         static public int[] Task498_FindDiagonalOrder(int[][] mat)//498. Diagonal Traverse
         {
-            List<int> result = new List<int>();
+            List<int> result = new();
             int countdiag = mat.Length + mat[0].Length + 1;
             bool up = true;
             result.Add(mat[0][0]);
