@@ -3,11 +3,31 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static LeetCode.IRecursion;
 
 namespace LeetCode
 {
     internal interface IDailySolutions: ISorting,IArrayandString
     {
+        public int Task938_RangeSumBST(TreeNode root, int low, int high)
+        {
+            int summ = 0;
+            if (low <= root.val && root.val <= high)
+            {
+                summ += root.val;
+            }
+            if (root.left != null)
+                {
+                    summ += Task938_RangeSumBST(root.left, low, high);
+                }
+            if (root.right != null)
+                {
+                    summ += Task938_RangeSumBST(root.right, low, high);
+                }
+            return summ;
+            
+        }
+
         static public int[] Task300_LengthOfLIS_dynamic(int[] nums)//300. Longest Increasing Subsequence, nado eshe ebanut' nlogn
         {
             int[] Subseq = new int[nums.Length];
