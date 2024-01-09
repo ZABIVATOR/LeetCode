@@ -9,6 +9,31 @@ namespace LeetCode
 {
     internal interface IDailySolutions: ISorting,IArrayandString
     {
+        public List<int> FindLeafs(ref List<int> res, TreeNode root)
+        {
+            if (root.left == null && root.right == null)
+            {
+                res.Add(root.val);
+            }
+            else
+            {
+                if (root.left != null)
+                    FindLeafs(ref res, root.left);
+                if (root.right != null)
+                    FindLeafs(ref res, root.right);
+            }
+            return res;
+        }
+        public bool Task872_LeafSimilar(TreeNode root1, TreeNode root2)
+        {
+            List<int> leaf1 = new();
+            List<int> leaf2 = new();
+            leaf1 = FindLeafs(ref leaf1, root1);
+            leaf2 = FindLeafs(ref leaf2, root2);
+
+            return (leaf1.SequenceEqual(leaf2));
+        }
+
         public int Task938_RangeSumBST(TreeNode root, int low, int high)
         {
             int summ = 0;
