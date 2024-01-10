@@ -9,6 +9,35 @@ namespace LeetCode
 {
     internal interface IDailySolutions: ISorting,IArrayandString
     {
+        public class Solution2385
+        {
+            private int result;
+            public int Task2385_AmountOfTime(TreeNode root, int start)
+            {
+                DFS(root, start);
+                return result;
+            }
+
+            private int DFS(TreeNode node, int start)
+            {
+                if (node == null) return 0;
+
+                int leftDepth = DFS(node.left, start);
+                int rightDepth = DFS(node.right, start);
+
+                if (node.val == start)
+                {
+                    result = Math.Max(leftDepth, rightDepth);
+                    return -1;
+                }
+                else if (leftDepth >= 0 && rightDepth >= 0)
+                    return Math.Max(leftDepth, rightDepth) + 1;
+
+                result = Math.Max(result, Math.Abs(leftDepth - rightDepth));
+                return Math.Min(leftDepth, rightDepth) - 1;
+            }
+        }
+
         public List<int> FindLeafs(ref List<int> res, TreeNode root)
         {
             if (root.left == null && root.right == null)
