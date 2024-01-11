@@ -9,6 +9,27 @@ namespace LeetCode
 {
     internal interface IDailySolutions: ISorting,IArrayandString
     {
+        public class Solution1026
+        {
+            int diff = 0;
+            public int Task1026_MaxAncestorDiff(TreeNode root)
+            {
+                DFS(root, root.val, 0);
+                return diff;
+            }
+
+            public void DFS(TreeNode root, int min, int max)
+            {
+                if (root == null) return;
+                min = Math.Min(min, root.val);
+                max = Math.Max(max, root.val);
+                diff = Math.Max(diff, max - min);
+                DFS(root.left, min, max);
+                DFS(root.right, min, max);
+            }
+        }
+
+
         public class Solution2385
         {
             private int result;
