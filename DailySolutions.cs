@@ -9,6 +9,91 @@ namespace LeetCode
 {
     internal interface IDailySolutions: ISorting,IArrayandString
     {
+        public bool Task1704_HalvesAreAlike(string s)
+        {
+            int right = 0;
+            int left = 0;
+            int len = s.Length;
+
+            for (int i = 0; i < len / 2; i++)
+            {
+                switch (s[i])
+                {
+                    case 'a':
+                        left++;
+                        break;
+                    case 'e':
+                        left++;
+                        break;
+                    case 'i':
+                        left++;
+                        break;
+                    case 'o':
+                        left++;
+                        break;
+                    case 'u':
+                        left++;
+                        break;
+                    case 'A':
+                        left++;
+                        break;
+                    case 'E':
+                        left++;
+                        break;
+                    case 'I':
+                        left++;
+                        break;
+                    case 'O':
+                        left++;
+                        break;
+                    case 'U':
+                        left++;
+                        break;
+                }
+            }
+
+
+            for (int i = len/2; i < len; i++)
+            {
+                switch (s[i])
+                {
+                    case 'a':
+                        right++;
+                        break;
+                    case 'e':
+                        right++;
+                        break;
+                    case 'i':
+                        right++;
+                        break;
+                    case 'o':
+                        right++;
+                        break;
+                    case 'u':
+                        right++;
+                        break;
+                    case 'A':
+                        right++;
+                        break;
+                    case 'E':
+                        right++;
+                        break;
+                    case 'I':
+                        right++;
+                        break;
+                    case 'O':
+                        right++;
+                        break;
+                    case 'U':
+                        right++;
+                        break;
+                }
+            }
+
+            return left == right;
+        }
+
+
         public class Solution1026
         {
             int diff = 0;
