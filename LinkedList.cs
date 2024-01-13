@@ -9,6 +9,27 @@ namespace LeetCode
 {
     public class TwoPointer
     {
+        public ListNode Task19_RemoveNthFromEnd(ListNode head, int n)
+        {
+            ListNode dummy = new(0, head); // Create a dummy node
+            ListNode slow = dummy, fast = dummy;
+
+            for (int i = 0; i < n; i++)
+            {
+                fast = fast?.next;
+
+            }
+
+            while (fast?.next != null)
+            {
+                fast = fast.next;
+                slow = slow.next;
+            }
+
+            slow.next = slow.next.next;
+
+            return dummy.next;
+        }
 
         public ListNode Task160_GetIntersectionNode(ListNode headA, ListNode headB)
         {
@@ -111,7 +132,7 @@ namespace LeetCode
     {
         public int val;
         public ListNode next;
-        public ListNode(int x)
+        public ListNode(int x,ListNode next = null)
         {
             val = x;
             next = null;
