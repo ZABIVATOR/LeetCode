@@ -9,6 +9,32 @@ namespace LeetCode
 {
     public class TwoPointer
     {
+        public ListNode Task328_OddEvenList(ListNode head)
+        {
+            if (head == null || head.next == null)
+                return head;
+
+            //Storing evenHead to attach to end of odd later
+            ListNode evenHead = head.next;
+            ListNode odd = head; ListNode even = evenHead;
+
+            while (even != null && even.next != null)
+            {
+                //Skipping over one to get next in odd and even 
+                var nextOdd = odd.next.next;
+                var nextEven = even.next.next;
+
+                //Reassigning pointers
+                odd.next = nextOdd; even.next = nextEven;
+
+                //Incrementing
+                odd = nextOdd; even = nextEven;
+            }
+
+            odd.next = evenHead; //Attaching odd's end to even's head
+            return head;
+        }
+
         public ListNode Task203_RemoveElements(ListNode head, int val)
         {
             ListNode dummy = new ListNode(0);
@@ -97,7 +123,6 @@ namespace LeetCode
             return length;
         }
 
-
         public ListNode Task142_DetectCycle(ListNode head)
         {
             ListNode slow = head, fast = head;
@@ -126,9 +151,6 @@ namespace LeetCode
             return head;
         }
 
-
-
-
         private bool MovePointers(ListNode fast, ListNode slow)
         {
             if (fast == null || fast.next == null || fast.next.next == null)
@@ -153,7 +175,6 @@ namespace LeetCode
             ListNode slow = head;
             return MovePointers(fast, slow);
         }
-
     }
     public class ListNode
     {
