@@ -9,7 +9,47 @@ namespace LeetCode
 {
     public class TwoPointer
     {
-        
+
+        public ListNode Task160_GetIntersectionNode(ListNode headA, ListNode headB)
+        {
+            var lengthA = GetListNodeLength(headA);
+            var lengthB = GetListNodeLength(headB);
+
+            while (lengthA > lengthB)
+            {
+                headA = headA.next;
+                lengthA--;
+            }
+
+            while (lengthB > lengthA)
+            {
+                headB = headB.next;
+                lengthB--;
+            }
+
+            while (headA != headB)
+            {
+                headA = headA.next;
+                headB = headB.next;
+            }
+
+            return headA;
+        }
+
+        private static int GetListNodeLength(ListNode node)
+        {
+            var length = 0;
+
+            while (node != null)
+            {
+                node = node.next;
+                length++;
+            }
+
+            return length;
+        }
+
+
         public ListNode Task142_DetectCycle(ListNode head)
         {
             ListNode slow = head, fast = head;
