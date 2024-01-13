@@ -9,6 +9,33 @@ namespace LeetCode
 {
     public class TwoPointer
     {
+        public ListNode Task203_RemoveElements(ListNode head, int val)
+        {
+            ListNode dummy = new ListNode(0);
+            dummy.next = head;
+
+            ListNode prev = dummy;
+            ListNode curr = head;
+
+            while (curr != null)
+            {
+                if (curr.val == val)
+                    prev.next = curr.next;
+                else
+                    prev = curr;
+                curr = curr.next;
+            }
+
+            return dummy.next;
+        }
+
+        public ListNode Task203_RemoveElements_recursive(ListNode h, int v)
+        {
+            if (h == null) return null;
+            h.next = Task203_RemoveElements_recursive(h.next, v);
+            return h.val == v ? h.next : h;
+        }
+
         public ListNode Task19_RemoveNthFromEnd(ListNode head, int n)
         {
             ListNode dummy = new(0, head); // Create a dummy node
