@@ -9,6 +9,21 @@ namespace LeetCode
 {
     internal interface IDailySolutions: ISorting,IArrayandString
     {
+        public int Task1347_MinSteps(string s, string t)
+        {
+            int[] charSet = new int[26];
+            for (int i = 0; i < s.Length; i++)
+            {
+                charSet[s[i] - 'a']++;    
+                --charSet[t[i] - 'a'];     
+            }
+            int count = 0;
+            for (int i = 0; i < charSet.Length; i++)
+                if (charSet[i] > 0) 
+                    count += charSet[i];
+            return count;
+        }
+
         public bool Task1704_HalvesAreAlike(string s)
         {
             int right = 0;
