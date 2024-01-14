@@ -9,6 +9,27 @@ namespace LeetCode
 {
     internal interface IDailySolutions: ISorting,IArrayandString
     {
+        public bool Task1657_CloseStrings(string word1, string word2)
+        {
+            if (word1.Length != word2.Length) return false;
+
+            int[] w1c = new int[26];
+            int[] w2c = new int[26];
+
+            foreach (char c in word1) w1c[c - 'a']++;
+            foreach (char c in word2) w2c[c - 'a']++;
+
+            for (int i = 0; i < 26; i++)
+            {
+                if ((w1c[i] != 0) != (w2c[i] != 0)) return false;
+            }
+
+            Array.Sort(w1c);
+            Array.Sort(w2c);
+
+            return w1c.SequenceEqual(w2c);
+        }
+
         public int Task1347_MinSteps(string s, string t)
         {
             int[] charSet = new int[26];
