@@ -9,6 +9,56 @@ namespace LeetCode
 {
     internal interface IDailySolutions: ISorting,IArrayandString
     {
+        public IList<IList<int>> Task2225_FindWinners(int[][] matches)
+        {
+            Dictionary<int,int> players = new Dictionary<int,int>();
+
+            foreach (int[] game in matches)
+            {
+                var winner = game[0];
+                var loser = game[1];
+
+                if (players.ContainsKey(winner))
+                {
+
+                }
+                else
+                {
+                    players.Add(winner, 0);
+                }
+
+                if (players.ContainsKey(loser))
+                {
+                    players[loser]++;
+                }
+                else
+                {
+                    players.Add(loser, 1);
+                }
+            }
+
+            var zeroloses = players.Where(x => x.Value==0).ToList();
+            var onelose = players.Where(x => x.Value == 1).ToArray();
+            IList<int> first = new List<int>();
+            IList<int> second = new List<int>();
+
+            foreach (var player in zeroloses)
+            {
+                first.Add(player.Key);
+            }
+
+            foreach (var player in onelose)
+            {
+                second.Add(player.Key);
+            }
+
+            return new List<IList<int>>
+        {
+            first.OrderBy(x => x).ToList(),
+            second.OrderBy(x => x).ToList()
+        };
+        }
+
         public bool Task1657_CloseStrings(string word1, string word2)
         {
             if (word1.Length != word2.Length) return false;
