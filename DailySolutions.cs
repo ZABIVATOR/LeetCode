@@ -9,6 +9,43 @@ namespace LeetCode
 {
     internal interface IDailySolutions: ISorting,IArrayandString
     {
+public class Task380_RandomizedSet {
+    private static readonly Random     random  = new Random();
+    HashSet<int> set = new HashSet<int>();
+    public RandomizedSet(HashSet<int> init = null) {
+        if (init != null)
+            set = init;
+    }
+    
+    public bool Insert(int val) {
+        if (set.Contains(val))
+            return false;
+        set.Add(val);
+        return true;
+    }
+    
+    public bool Remove(int val) {
+        if (set.Contains(val)){
+        set.Remove(val);
+            return true;
+            }
+        return false;
+    }
+    
+    public int GetRandom() {
+        return set.ElementAt(random.Next(set.Count));
+    }
+}
+
+/**
+ * Your RandomizedSet object will be instantiated and called as such:
+ * RandomizedSet obj = new RandomizedSet();
+ * bool param_1 = obj.Insert(val);
+ * bool param_2 = obj.Remove(val);
+ * int param_3 = obj.GetRandom();
+ */
+
+
         public IList<IList<int>> Task2225_FindWinners(int[][] matches)
         {
             Dictionary<int,int> players = new Dictionary<int,int>();
