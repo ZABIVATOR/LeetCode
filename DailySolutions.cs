@@ -9,6 +9,28 @@ namespace LeetCode
 {
     internal interface IDailySolutions: ISorting,IArrayandString
     {
+ public bool Task1207_UniqueOccurrences(int[] arr) {
+        Dictionary<int,int> occur= new Dictionary<int,int>();
+        foreach(var a in arr){
+            if (occur.ContainsKey(a))
+                occur[a]++;
+            else 
+                occur.Add(a,1);
+        }
+        Dictionary<int,int> temp= new Dictionary<int,int>();
+        foreach (var elem in occur){
+            int val= occur[elem.Key];
+            try{                
+                temp.Add(val,1);
+            }
+            catch{
+                return false;
+            }
+        }
+        return true;
+    }
+
+
 public class Task380_RandomizedSet {
     private static readonly Random     random  = new Random();
     HashSet<int> set = new HashSet<int>();
