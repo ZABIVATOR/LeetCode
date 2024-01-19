@@ -9,6 +9,31 @@ namespace LeetCode
 {
     internal interface IDailySolutions: ISorting,IArrayandString
     {
+
+
+private void AddMin(ref int elem, int a=1000000,int b= 1000000, int c = 100000000){
+        elem = elem + Math.Min(a, Math.Min(b,c));
+
+    }
+    
+    public int Task931_MinFallingPathSum(int[][] matrix) {
+        int n = matrix[0].Length;
+        for ( int i =1;i<matrix.Length;i++){
+            AddMin( ref matrix[i][0], matrix[i-1][0], matrix [i-1][1]);
+            AddMin( ref matrix[i][n-1], matrix[i-1][n-2], matrix [i-1][n-1]);
+            for (int j=1;j<n-1;j++){
+                AddMin( ref matrix[i][j], matrix[i-1][j-1], matrix [i-1][j], matrix [i-1][j+1]);
+
+
+                }
+
+            
+            
+        }
+        return matrix[n-1].Min();
+    }
+
+
  public bool Task1207_UniqueOccurrences(int[] arr) {
         Dictionary<int,int> occur= new Dictionary<int,int>();
         foreach(var a in arr){
