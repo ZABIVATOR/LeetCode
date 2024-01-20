@@ -10,6 +10,53 @@ namespace LeetCode
     internal interface IDailySolutions: ISorting,IArrayandString
     {
 
+ public int SumSubarrayMins(int[] arr) {
+
+        
+
+        if(arr == null || arr.Length == 0)
+
+            return 0;
+
+        
+
+        Stack<int> stack = new Stack<int>();
+
+        int n = arr.Length, MOD = (int)1e9 + 7;
+
+        long res = 0;
+
+        for(int i = 0; i <= n; i++)
+
+        {
+
+            while(stack.Count > 0 && arr[stack.Peek()] >= (i == n? 0 : arr[i]))
+
+            {
+
+                int mid = stack.Pop();
+
+                int left = stack.Count == 0? -1 : stack.Peek();
+
+                int right = i;
+
+                res = (res + (long)arr[mid] * (right - mid) * (mid - left)) % MOD;
+
+            }
+
+            
+
+            stack.Push(i);
+
+        }
+
+        
+
+        return (int)res;
+
+    }
+
+
 
 private void AddMin(ref int elem, int a=1000000,int b= 1000000, int c = 100000000){
         elem = elem + Math.Min(a, Math.Min(b,c));
