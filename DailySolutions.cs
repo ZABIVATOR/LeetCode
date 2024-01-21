@@ -9,103 +9,93 @@ namespace LeetCode
 {
     internal interface IDailySolutions: ISorting,IArrayandString
     {
-
- public int SumSubarrayMins(int[] arr) {
-
-        
-
-        if(arr == null || arr.Length == 0)
-
-            return 0;
-
-        
-
-        Stack<int> stack = new Stack<int>();
-
-        int n = arr.Length, MOD = (int)1e9 + 7;
-
-        long res = 0;
-
-        for(int i = 0; i <= n; i++)
-
+        public int Task198_Rob(int[] nums)
         {
+            if (nums.Length < 3) return nums.Max();
+            int prevMax = 0;
+            int currMax = 0;
 
-            while(stack.Count > 0 && arr[stack.Peek()] >= (i == n? 0 : arr[i]))
-
+            foreach (int num in nums)
             {
-
-                int mid = stack.Pop();
-
-                int left = stack.Count == 0? -1 : stack.Peek();
-
-                int right = i;
-
-                res = (res + (long)arr[mid] * (right - mid) * (mid - left)) % MOD;
-
+                int temp = currMax;
+                currMax = Math.Max(prevMax + num, currMax);
+                prevMax = temp;
             }
 
-            
-
-            stack.Push(i);
-
+            return currMax;
         }
 
-        
+        public int SumSubarrayMins(int[] arr)
+        {
+            if (arr == null || arr.Length == 0)
+                return 0;
 
-        return (int)res;
+            Stack<int> stack = new Stack<int>();
+            int n = arr.Length, MOD = (int)1e9 + 7;
+            long res = 0;
 
-    }
-
-
-
-private void AddMin(ref int elem, int a=1000000,int b= 1000000, int c = 100000000){
-        elem = elem + Math.Min(a, Math.Min(b,c));
-
-    }
-    
-    public int Task931_MinFallingPathSum(int[][] matrix) {
-        int n = matrix[0].Length;
-        for ( int i =1;i<matrix.Length;i++){
-            AddMin( ref matrix[i][0], matrix[i-1][0], matrix [i-1][1]);
-            AddMin( ref matrix[i][n-1], matrix[i-1][n-2], matrix [i-1][n-1]);
-            for (int j=1;j<n-1;j++){
-                AddMin( ref matrix[i][j], matrix[i-1][j-1], matrix [i-1][j], matrix [i-1][j+1]);
-
-
+            for (int i = 0; i <= n; i++)
+            {
+                while (stack.Count > 0 && arr[stack.Peek()] >= (i == n ? 0 : arr[i]))
+                {
+                    int mid = stack.Pop();
+                    int left = stack.Count == 0 ? -1 : stack.Peek();
+                    int right = i;
+                    res = (res + (long)arr[mid] * (right - mid) * (mid - left)) % MOD;
                 }
-
-            
-            
-        }
-        return matrix[n-1].Min();
-    }
-
-
- public bool Task1207_UniqueOccurrences(int[] arr) {
-        Dictionary<int,int> occur= new Dictionary<int,int>();
-        foreach(var a in arr){
-            if (occur.ContainsKey(a))
-                occur[a]++;
-            else 
-                occur.Add(a,1);
-        }
-        Dictionary<int,int> temp= new Dictionary<int,int>();
-        foreach (var elem in occur){
-            int val= occur[elem.Key];
-            try{                
-                temp.Add(val,1);
+                stack.Push(i);
             }
-            catch{
-                return false;
-            }
+            return (int)res;
         }
-        return true;
-    }
 
+        private void AddMin(ref int elem, int a = 1000000, int b = 1000000, int c = 100000000)
+        {
+            elem = elem + Math.Min(a, Math.Min(b, c));
+        }
+        public int Task931_MinFallingPathSum(int[][] matrix)
+        {
+            int n = matrix[0].Length;
+            for (int i = 1; i < matrix.Length; i++)
+            {
+                AddMin(ref matrix[i][0], matrix[i - 1][0], matrix[i - 1][1]);
+                AddMin(ref matrix[i][n - 1], matrix[i - 1][n - 2], matrix[i - 1][n - 1]);
+                for (int j = 1; j < n - 1; j++)
+                {
+                    AddMin(ref matrix[i][j], matrix[i - 1][j - 1], matrix[i - 1][j], matrix[i - 1][j + 1]);
+                }
+            }
+            return matrix[n - 1].Min();
+        }
+
+        public bool Task1207_UniqueOccurrences(int[] arr)
+        {
+            Dictionary<int, int> occur = new Dictionary<int, int>();
+            foreach (var a in arr)
+            {
+                if (occur.ContainsKey(a))
+                    occur[a]++;
+                else
+                    occur.Add(a, 1);
+            }
+            Dictionary<int, int> temp = new Dictionary<int, int>();
+            foreach (var elem in occur)
+            {
+                int val = occur[elem.Key];
+                try
+                {
+                    temp.Add(val, 1);
+                }
+                catch
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
 
         public IList<IList<int>> Task2225_FindWinners(int[][] matches)
         {
-            Dictionary<int,int> players = new Dictionary<int,int>();
+            Dictionary<int, int> players = new Dictionary<int, int>();
 
             foreach (int[] game in matches)
             {
@@ -131,7 +121,7 @@ private void AddMin(ref int elem, int a=1000000,int b= 1000000, int c = 10000000
                 }
             }
 
-            var zeroloses = players.Where(x => x.Value==0).ToList();
+            var zeroloses = players.Where(x => x.Value == 0).ToList();
             var onelose = players.Where(x => x.Value == 1).ToArray();
             IList<int> first = new List<int>();
             IList<int> second = new List<int>();
