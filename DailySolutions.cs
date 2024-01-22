@@ -9,6 +9,33 @@ namespace LeetCode
 {
     internal interface IDailySolutions: ISorting,IArrayandString
     {
+        public int[] TAsk645_FindErrorNums(int[] nums)
+        {
+            int first = 0;
+            int second = 0;
+
+            int[] count = new int[nums.Length + 1];
+            count[nums[0]] += 1;
+            for (int i = 1; i < nums.Length; i++)
+            {
+                count[nums[i]] += 1;
+            }
+
+            for (int j = 1; j < count.Length; j++)
+            {
+                if (count[j] > 1)
+                {
+                    first = j;
+                }
+                if (count[j] == 0)
+                {
+                    second = j;
+                }
+            }
+
+            return new int[] { first, second };
+        }
+
         public int Task198_Rob(int[] nums)
         {
             if (nums.Length < 3) return nums.Max();
