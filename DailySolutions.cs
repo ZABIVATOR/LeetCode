@@ -9,7 +9,19 @@ namespace LeetCode
 {
     internal interface IDailySolutions: ISorting,IArrayandString
     {
-        public int[] TAsk645_FindErrorNums(int[] nums)
+        public int Task1239_MaxLength(IList<string> arr, int i = 0, string s = "")
+        {
+            if (s.Distinct().Count() < s.Length) return 0;
+
+            if (arr.Count == i) return s.Length;
+
+            return Math.Max(
+                Task1239_MaxLength(arr, i + 1, s),
+                Task1239_MaxLength(arr, i + 1, s + arr[i])
+            );
+        }
+
+        public int[] Task645_FindErrorNums(int[] nums)
         {
             int first = 0;
             int second = 0;
