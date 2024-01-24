@@ -9,6 +9,14 @@ namespace LeetCode
 {
     internal interface IDailySolutions: ISorting,IArrayandString
     {
+        public int Task1457_PseudoPalindromicPaths(TreeNode root, int c = 0)
+        {
+            if (root == null) return 0;
+            c ^= 1 << root.val; // toggle bit for each number
+            if (root.left == null && root.right == null) return (c & (c - 1)) > 0 ? 0 : 1; // return 1 when there's at most one bit set
+            return Task1457_PseudoPalindromicPaths(root.left, c) + Task1457_PseudoPalindromicPaths(root.right, c);
+        }
+
         public int Task1239_MaxLength(IList<string> arr, int i = 0, string s = "")
         {
             if (s.Distinct().Count() < s.Length) return 0;
