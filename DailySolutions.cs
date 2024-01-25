@@ -9,6 +9,19 @@ namespace LeetCode
 {
     internal interface IDailySolutions: ISorting,IArrayandString
     {
+        public int Task1143_LongestCommonSubsequence(string text1, string text2)
+        {
+            var matrix = new int[text1.Length + 1, text2.Length + 1];
+
+            for (var i1 = 0; i1 < text1.Length; i1++)
+                for (var i2 = 0; i2 < text2.Length; i2++)
+                    if (text1[i1] == text2[i2])
+                        matrix[i1 + 1, i2 + 1] = matrix[i1, i2] + 1;
+                    else
+                        matrix[i1 + 1, i2 + 1] = Math.Max(matrix[i1 + 1, i2], matrix[i1, i2 + 1]);
+
+            return matrix[text1.Length, text2.Length];
+        }
         public int Task1457_PseudoPalindromicPaths(TreeNode root, int c = 0)
         {
             if (root == null) return 0;
