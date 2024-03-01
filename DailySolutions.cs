@@ -9,6 +9,37 @@ namespace LeetCode
 {
     internal interface IDailySolutions: ISorting,IArrayandString
     {
+        public string Task2864_MaximumOddBinaryNumber(string s)
+        {
+            int zeros = 0;
+            int ones = 0;
+            foreach (char letter in s) {
+                switch (letter)
+                {
+                    case '0':
+                        zeros++;
+                        break;
+                    case '1':
+                        ones++;
+                        break;
+                }
+            }
+            string result = "";
+
+            for (int i = 0; i < ones-1; i++)
+            {
+                result += 1;
+            }
+
+            for (int i = ones; i < ones + zeros; i++)
+            {
+                result += '0';
+            }
+            result += '1';
+
+            return result;
+        }
+
         public int Task1143_LongestCommonSubsequence(string text1, string text2)
         {
             var matrix = new int[text1.Length + 1, text2.Length + 1];
