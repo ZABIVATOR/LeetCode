@@ -9,6 +9,38 @@ namespace LeetCode
 {
     internal interface IDailySolutions: ISorting,IArrayandString
     {
+        public int[] Task977_SortedSquares(int[] nums)
+        {
+            int countpos = 1;
+            int countneg = 0;
+            int countBeginning = 0;
+            int[] result = new int[nums.Length];
+            for (int i = 0; i < nums.Length; i++)
+            {
+                if (nums[i] >= 0)
+                {
+                    if (nums.Length == 2)
+                        result[countBeginning] = nums[i] * nums[i];
+                    if ((countBeginning + countneg + countpos) >= nums.Length + 1)
+                    {
+                        Console.WriteLine("END ");
+                        break;
+                    }
+                    result[countBeginning] = nums[i] * nums[i];
+                    countBeginning++;
+                    continue;
+                }
+                while (-nums[i] <= nums[nums.Length - countpos])
+                {
+                    result[nums.Length - countpos - countneg] = nums[nums.Length - countpos] * nums[nums.Length - countpos];
+                    countpos++;
+                }
+                result[nums.Length - countpos - countneg] = nums[i] * nums[i];
+                countneg++;
+            }
+            return result;
+        }
+
         public string Task2864_MaximumOddBinaryNumber(string s)
         {
             int zeros = 0;
