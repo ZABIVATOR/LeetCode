@@ -9,6 +9,26 @@ namespace LeetCode
 {
     internal interface IDailySolutions: ISorting,IArrayandString
     {
+        static public int MinimumLength(string s)
+        {
+            int aswer = s.Length;
+            for (int i = 0; i < s.Length/2;)
+            {
+                if (s[i] == s[s.Length-1-i])
+                {
+                    i++;
+                    aswer -= 2;
+                }
+                else
+                {
+                    return aswer;
+                }
+
+            }
+            return aswer;
+        }
+
+
         public int Task948_BagOfTokensScore(int[] tokens, int power)
         {
             Array.Sort(tokens);
