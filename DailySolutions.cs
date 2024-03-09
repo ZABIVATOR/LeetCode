@@ -23,7 +23,7 @@ namespace LeetCode
             return -1;
         }
 
-        public int Task2540_GetCommon(int[] nums1, int[] nums2)
+        public int Task2540_GetCommon(int[] nums1, int[] nums2)//time limit exceeded
         {
             Array.Sort(nums1);
             Array.Sort(nums2);
