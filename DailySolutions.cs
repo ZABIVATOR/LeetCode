@@ -9,6 +9,34 @@ namespace LeetCode
 {
     internal interface IDailySolutions: ISorting,IArrayandString
     {
+        int FirstEncounter(ref int[] nums1, ref int[] nums2)
+        {
+            for (int i = 0; i < nums1.Length; i++)
+            {
+                for (int j=0; j< nums2.Length/2+1; j++) { 
+                    if (nums1[i] == nums2[j]) 
+                        return nums1[i];
+                    if (nums1[i] == nums2[nums2.Length-j-1])
+                        return nums1[i];
+                }
+            }
+            return -1;
+        }
+
+        public int Task2540_GetCommon(int[] nums1, int[] nums2)
+        {
+            Array.Sort(nums1);
+            Array.Sort(nums2);
+
+            if (nums1[0] > nums2[0])
+            {
+                return FirstEncounter(ref nums1, ref nums2);
+            }
+            else
+            {
+                return FirstEncounter(ref nums2, ref nums1);
+            }
+        }
         static public int MinimumLength(string s)
         {
             int aswer = s.Length;
