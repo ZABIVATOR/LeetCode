@@ -9,6 +9,24 @@ namespace LeetCode
 {
     internal interface IDailySolutions: ISorting,IArrayandString
     {
+        public int[] Task349_Intersection(int[] nums1, int[] nums2)
+        {
+            HashSet<int> res1 = new HashSet<int>();
+            foreach (int i in nums1)
+            {
+                res1.Add(i);
+            }
+
+            HashSet<int> res2 = new HashSet<int>();
+            foreach (int i in nums2)
+            {
+                res2.Add(i);
+            }
+            res1.IntersectWith(res2);
+
+            return res1.ToArray();
+        }
+
         int FirstEncounter(ref int[] nums1, ref int[] nums2)
         {
             for (int i = 0; i < nums1.Length; i++)
