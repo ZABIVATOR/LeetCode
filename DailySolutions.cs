@@ -9,6 +9,29 @@ namespace LeetCode
 {
     internal interface IDailySolutions: ISorting,IArrayandString
     {
+        int factorial(int n) {
+            int res = 0;
+            for (int i = 1; i < n + 1; i++)
+                res += i;
+            return res;
+        }   
+        public int Task2485_PivotInteger(int n)
+        {
+            int leftsum = 0;
+            int rightsum = factorial(n);
+
+            for (int i = 0; i < n+1; i++)
+            {
+                leftsum += i;
+                if (leftsum == rightsum)
+                    return i;
+
+                rightsum -= i;
+            }
+
+            return -1;
+        }
+
         public int[] Task349_Intersection(int[] nums1, int[] nums2)
         {
             HashSet<int> res1 = new HashSet<int>();
